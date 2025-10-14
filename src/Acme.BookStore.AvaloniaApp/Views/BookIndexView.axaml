@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Acme.BookStore.AvaloniaApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Acme.BookStore.AvaloniaApp.Views.BookIndexView"
+             x:DataType="vm:BookIndexViewModel">
+    
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding Books}" Margin="0,0,0,20">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="#20FFFFFF" 
+                            CornerRadius="8" 
+                            Padding="15" 
+                            Margin="10"
+                            Width="200">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" 
+                                       FontSize="16" 
+                                       FontWeight="SemiBold" 
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding Price, StringFormat='${0:F2}'}" 
+                                       FontSize="14" 
+                                       Foreground="#B0FFFFFF" 
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding PublishDate, StringFormat='Published: {0:d}'}" 
+                                       FontSize="12" 
+                                       Foreground="#90FFFFFF" 
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+    
+</UserControl>

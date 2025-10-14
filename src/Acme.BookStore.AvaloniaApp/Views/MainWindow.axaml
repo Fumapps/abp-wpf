@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Acme.BookStore.AvaloniaApp.ViewModels"
+        xmlns:views="using:Acme.BookStore.AvaloniaApp.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="650"
+        x:Class="Acme.BookStore.AvaloniaApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/applicationIcon-256.png"
+        Title="{Binding Title}"
+        Width="1100" Height="650"
+        WindowStartupLocation="CenterScreen"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+        <Grid RowDefinitions="Auto,*" Margin="0">
+            <!-- Title Bar -->
+            <Border Grid.Row="0" Height="40" Background="Transparent" IsHitTestVisible="False" />
+            
+            <!-- Main Content -->
+            <Grid Grid.Row="1" ColumnDefinitions="250,*" Margin="0">
+                <!-- Navigation Panel -->
+                <Border Grid.Column="0" Background="#20000000" CornerRadius="8" Margin="18,0,9,18">
+                    <StackPanel Margin="20">
+                        <TextBlock FontSize="18" FontWeight="SemiBold" Text="Acme BookStore" Margin="0,0,0,10"/>
+                        <TextBlock FontSize="11" Foreground="#B0FFFFFF" Text="Avalonia Edition" Margin="0,0,0,20"/>
+                        
+                        <Button Content="📚 Books" 
+                                Command="{Binding NavigateToBooksCommand}"
+                                HorizontalAlignment="Stretch" 
+                                HorizontalContentAlignment="Left"
+                                Margin="0,5"/>
+                        <Button Content="📊 Dashboard" 
+                                Command="{Binding NavigateToDashboardCommand}"
+                                HorizontalAlignment="Stretch" 
+                                HorizontalContentAlignment="Left"
+                                Margin="0,5"/>
+                        <Button Content="📁 Data" 
+                                Command="{Binding NavigateToDataCommand}"
+                                HorizontalAlignment="Stretch" 
+                                HorizontalContentAlignment="Left"
+                                Margin="0,5"/>
+                        <Button Content="⚙️ Settings" 
+                                Command="{Binding NavigateToSettingsCommand}"
+                                HorizontalAlignment="Stretch" 
+                                HorizontalContentAlignment="Left"
+                                Margin="0,5"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Content Area -->
+                <Border Grid.Column="1" Background="#15FFFFFF" CornerRadius="8,0,0,0" Margin="9,0,18,18">
+                    <ScrollViewer>
+                        <ContentControl Content="{Binding CurrentView}" Margin="20"/>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Grid>
+    </Panel>
+</Window>
