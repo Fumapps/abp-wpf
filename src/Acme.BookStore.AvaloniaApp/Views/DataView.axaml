@@ -3,13 +3,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Acme.BookStore.AvaloniaApp.ViewModels"
+             xmlns:models="using:Acme.BookStore.AvaloniaApp.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Acme.BookStore.AvaloniaApp.Views.DataView"
              x:DataType="vm:DataViewModel">
     
-    <StackPanel Margin="20">
-        <TextBlock Text="Data" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
-        <TextBlock Text="Data management view" FontSize="16" Margin="0,10"/>
-    </StackPanel>
+    <DockPanel>
+        <TextBlock Text="Data - Random Color Grid (8192 items)" 
+                   FontSize="16" 
+                   FontWeight="SemiBold"
+                   Margin="20,10"
+                   DockPanel.Dock="Top"/>
+        
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Colors}" Margin="20">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="models:DataColor">
+                        <Border Width="80" 
+                                Height="80" 
+                                Background="{Binding Color}"
+                                Margin="2"
+                                CornerRadius="4">
+                            <Viewbox Width="30" Height="30">
+                                <Path Data="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                                      Fill="White"
+                                      Opacity="0.7"/>
+                            </Viewbox>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
     
 </UserControl>

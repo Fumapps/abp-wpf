@@ -76,6 +76,7 @@ public partial class App : Application
                     options.Services.AddTransient<DataViewModel>();
                     options.Services.AddTransient<SettingsViewModel>();
                     options.Services.AddTransient<BookIndexViewModel>();
+                    options.Services.AddTransient<BookEditViewModel>();
                     
                     // Register application services
                     options.Services.AddSingleton<IBooksAppService, BooksAppService>();

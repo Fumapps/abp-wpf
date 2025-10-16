@@ -7,11 +7,52 @@
              x:Class="Acme.BookStore.AvaloniaApp.Views.SettingsView"
              x:DataType="vm:SettingsViewModel">
     
-    <StackPanel Margin="20">
-        <TextBlock Text="Settings" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
-        <TextBlock Text="Application settings" FontSize="16" Margin="0,10"/>
-        <TextBlock Text="Configure your preferences here." 
-                   FontSize="14" Foreground="#B0FFFFFF" Margin="0,10"/>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="10">
+            <TextBlock Text="Personalization" 
+                       FontSize="20" 
+                       FontWeight="Medium"
+                       Margin="0,0,0,10"/>
+            
+            <TextBlock Text="Theme" 
+                       FontSize="14"
+                       Margin="0,10,0,5"/>
+            
+            <RadioButton Content="Light"
+                         GroupName="ThemeSelect"
+                         IsChecked="{Binding IsLightTheme}"
+                         Command="{Binding ChangeThemeCommand}"
+                         CommandParameter="theme_light"
+                         Margin="0,5,0,0"/>
+            
+            <RadioButton Content="Dark"
+                         GroupName="ThemeSelect"
+                         IsChecked="{Binding IsDarkTheme}"
+                         Command="{Binding ChangeThemeCommand}"
+                         CommandParameter="theme_dark"
+                         Margin="0,5,0,0"/>
+            
+            <Separator Margin="0,20,0,20"/>
+            
+            <TextBlock Text="About Acme.BookStore.AvaloniaApp" 
+                       FontSize="20" 
+                       FontWeight="Medium"
+                       Margin="0,0,0,10"/>
+            
+            <TextBlock Text="{Binding AppVersion}" 
+                       FontSize="14"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            
+            <TextBlock Text="Cross-platform desktop application built with Avalonia UI" 
+                       FontSize="12"
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                       Margin="0,10,0,0"/>
+            
+            <TextBlock Text="Powered by ABP Framework" 
+                       FontSize="12"
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+    </ScrollViewer>
     
 </UserControl>

@@ -3,43 +3,154 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Acme.BookStore.AvaloniaApp.ViewModels"
+             xmlns:books="using:Acme.BookStore.Books"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Acme.BookStore.AvaloniaApp.Views.BookIndexView"
              x:DataType="vm:BookIndexViewModel">
     
-    <ScrollViewer>
-        <ItemsControl ItemsSource="{Binding Books}" Margin="0,0,0,20">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+    <Grid RowDefinitions="Auto,*" Margin="20,10,20,20">
+        <!-- Header with action buttons -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="15" Margin="0,0,0,15">
+            <TextBlock Text="Books" 
+                       FontSize="20" 
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center"/>
             
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border Background="#20FFFFFF" 
-                            CornerRadius="8" 
-                            Padding="15" 
-                            Margin="10"
-                            Width="200">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}" 
-                                       FontSize="16" 
-                                       FontWeight="SemiBold" 
-                                       Margin="0,0,0,8"/>
-                            <TextBlock Text="{Binding Price, StringFormat='${0:F2}'}" 
-                                       FontSize="14" 
-                                       Foreground="#B0FFFFFF" 
-                                       Margin="0,0,0,8"/>
-                            <TextBlock Text="{Binding PublishDate, StringFormat='Published: {0:d}'}" 
-                                       FontSize="12" 
-                                       Foreground="#90FFFFFF" 
-                                       Margin="0,8,0,0"/>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+            <Button Content="➕ New Book" 
+                    Command="{Binding CreateBookCommand}"
+                    IsEnabled="{Binding !IsBusy}"
+                    Classes="accent"
+                    Padding="15,8"/>
+            
+            <Button Content="↻ Refresh" 
+                    Command="{Binding LoadDataCommand}"
+                    IsEnabled="{Binding !IsBusy}"
+                    Padding="15,8"/>
+            
+            <TextBlock Text="{Binding Books.Count, StringFormat='({0} books)'}"
+                       FontSize="14"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                       VerticalAlignment="Center"/>
+            
+            <TextBlock Text="Loading..."
+                       IsVisible="{Binding IsBusy}"
+                       FontSize="14"
+                       Foreground="{DynamicResource SystemAccentColor}"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+        
+        <!-- Books list -->
+        <ScrollViewer Grid.Row="1" 
+                      HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Books}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="books:BookDto">
+                        <Border Background="#20FFFFFF" 
+                                CornerRadius="8" 
+                                Padding="15" 
+                                Margin="6"
+                                Width="220"
+                                BoxShadow="0 2 8 0 #40000000">
+                            <StackPanel Spacing="8">
+                                <!-- Book icon -->
+                                <Viewbox Width="40" Height="40" 
+                                         HorizontalAlignment="Left">
+                                    <Path Data="M18,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V4C20,2.9,19.1,2,18,2z M18,20H6V4h2v8l2.5-1.5L13,12V4h5V20z"
+                                          Fill="{DynamicResource SystemAccentColor}"/>
+                                </Viewbox>
+                                
+                                <!-- Book name -->
+                                <TextBlock Text="{Binding Name}" 
+                                           FontSize="16" 
+                                           FontWeight="SemiBold" 
+                                           TextWrapping="Wrap"
+                                           MaxLines="2"/>
+                                
+                                <!-- Price -->
+                                <TextBlock Text="{Binding Price, StringFormat='${0:F2}'}" 
+                                           FontSize="18" 
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource SystemAccentColor}"/>
+                                
+                                <!-- Rating placeholder -->
+                                <StackPanel Orientation="Horizontal" Spacing="3">
+                                    <TextBlock Text="★★★★☆" 
+                                               FontSize="14"
+                                               Foreground="#FFD700"/>
+                                    <TextBlock Text="(4.0)" 
+                                               FontSize="12"
+                                               Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                                
+                                <!-- Publish date -->
+                                <TextBlock Text="{Binding PublishDate, StringFormat='📅 {0:d}'}" 
+                                           FontSize="12" 
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                
+                                <!-- Book type -->
+                                <Border Background="{DynamicResource SystemAccentColorLight1}"
+                                        CornerRadius="4"
+                                        Padding="8,4"
+                                        HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Type}" 
+                                               FontSize="11"
+                                               FontWeight="Medium"/>
+                                </Border>
+                                
+                                <!-- Separator -->
+                                <Rectangle Height="1" 
+                                           Fill="{DynamicResource TextFillColorTertiaryBrush}"
+                                           Opacity="0.3"
+                                           Margin="0,8,0,8"/>
+                                
+                                <!-- Action buttons -->
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Button Content="✏️ Edit" 
+                                            Command="{Binding $parent[ItemsControl].((vm:BookIndexViewModel)DataContext).EditBookCommand}"
+                                            CommandParameter="{Binding}"
+                                            Padding="10,6"
+                                            FontSize="12"
+                                            HorizontalAlignment="Stretch"/>
+                                    <Button Content="🗑️ Delete" 
+                                            Command="{Binding $parent[ItemsControl].((vm:BookIndexViewModel)DataContext).DeleteBookCommand}"
+                                            CommandParameter="{Binding}"
+                                            Padding="10,6"
+                                            FontSize="12"
+                                            HorizontalAlignment="Stretch"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <!-- Empty state -->
+        <StackPanel Grid.Row="1"
+                    IsVisible="{Binding !Books.Count}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Spacing="10">
+            <TextBlock Text="📚" 
+                       FontSize="64"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="No books found" 
+                       FontSize="18"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="Click refresh to load books from the database" 
+                       FontSize="14"
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
     
 </UserControl>

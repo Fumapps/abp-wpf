@@ -1,0 +1,75 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Acme.BookStore.AvaloniaApp.ViewModels"
+        x:Class="Acme.BookStore.AvaloniaApp.Views.BookEditView"
+        x:DataType="vm:BookEditViewModel"
+        Title="{Binding Title}"
+        Width="500" Height="480"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner">
+
+    <StackPanel Margin="20" Spacing="15">
+        
+        <StackPanel>
+            <TextBlock Text="Book Name *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding Name}" Watermark="Enter book name"/>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBlock Text="Book Type *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <ComboBox ItemsSource="{Binding BookTypes}"
+                      SelectedItem="{Binding SelectedType}"
+                      HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBlock Text="Publish Date *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <CalendarDatePicker SelectedDate="{Binding PublishDate}"
+                                HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBlock Text="Price *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <NumericUpDown Value="{Binding Price}"
+                           Minimum="0.01"
+                           Maximum="10000"
+                           FormatString="C2"
+                           Increment="1"
+                           HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <Border IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                Background="#FFEBEE"
+                BorderBrush="#F44336"
+                BorderThickness="1"
+                Padding="10"
+                CornerRadius="4">
+            <TextBlock Text="{Binding ErrorMessage}"
+                      Foreground="#C62828"
+                      TextWrapping="Wrap"/>
+        </Border>
+
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Center"
+                    IsVisible="{Binding IsSaving}">
+            <TextBlock Text="Saving..." VerticalAlignment="Center"/>
+            <ProgressBar IsIndeterminate="True" Width="100" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Spacing="10">
+            <Button Content="Cancel" 
+                    Command="{Binding CancelCommand}"
+                    IsEnabled="{Binding !IsSaving}"
+                    Width="100"/>
+            <Button Content="Save" 
+                    Command="{Binding SaveCommand}"
+                    IsEnabled="{Binding !IsSaving}"
+                    Width="100"
+                    Classes="accent"/>
+        </StackPanel>
+
+    </StackPanel>
+    
+</Window>

@@ -7,11 +7,33 @@
              x:Class="Acme.BookStore.AvaloniaApp.Views.DashboardView"
              x:DataType="vm:DashboardViewModel">
     
-    <StackPanel Margin="20">
-        <TextBlock Text="Dashboard" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
-        <TextBlock Text="Welcome to Acme BookStore!" FontSize="16" Margin="0,10"/>
-        <TextBlock Text="This is the dashboard view. Statistics and overview would go here." 
-                   FontSize="14" Foreground="#B0FFFFFF" Margin="0,10"/>
+    <StackPanel Margin="20" Spacing="10">
+        <TextBlock Text="Dashboard" FontSize="24" FontWeight="Bold"/>
+        
+        <TextBlock Text="Welcome to Acme BookStore!" 
+                   FontSize="18" 
+                   Margin="0,20,0,10"/>
+        
+        <TextBlock Text="This is a counter demonstration:" 
+                   FontSize="14" 
+                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
+                   Margin="0,10,0,0"/>
+        
+        <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,10,0,0">
+            <Button Content="Click me!" 
+                    Command="{Binding CounterIncrementCommand}"
+                    Padding="20,10"/>
+            
+            <TextBlock Text="{Binding Counter}" 
+                       FontSize="20"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+        
+        <TextBlock Text="Click the button to increment the counter" 
+                   FontSize="12" 
+                   Foreground="{DynamicResource TextFillColorTertiaryBrush}" 
+                   Margin="0,10,0,0"/>
     </StackPanel>
     
 </UserControl>
