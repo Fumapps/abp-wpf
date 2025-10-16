@@ -37,10 +37,13 @@
             <!-- Main Content -->
             <Grid Grid.Row="1" ColumnDefinitions="250,*" Margin="0">
                 <!-- Navigation Panel -->
-                <Border Grid.Column="0" Background="#20000000" CornerRadius="8" Margin="18,0,9,18">
+                <Border Grid.Column="0" 
+                        Classes="NavigationPanel"
+                        CornerRadius="8" 
+                        Margin="18,0,9,18">
                     <StackPanel Margin="20">
                         <TextBlock FontSize="18" FontWeight="SemiBold" Text="Acme BookStore" Margin="0,0,0,10"/>
-                        <TextBlock FontSize="11" Foreground="#B0FFFFFF" Text="Avalonia Edition" Margin="0,0,0,20"/>
+                        <TextBlock FontSize="11" Classes="SubtitleText" Text="Avalonia Edition" Margin="0,0,0,20"/>
                         
                         <Button Content="📚 Books" 
                                 Command="{Binding NavigateToBooksCommand}"
@@ -66,7 +69,10 @@
                 </Border>
 
                 <!-- Content Area -->
-                <Border Grid.Column="1" Background="#15FFFFFF" CornerRadius="8,0,0,0" Margin="9,0,18,18">
+                <Border Grid.Column="1" 
+                        Classes="ContentPanel"
+                        CornerRadius="8,0,0,0" 
+                        Margin="9,0,18,18">
                     <ScrollViewer>
                         <ContentControl Content="{Binding CurrentView}" Margin="20"/>
                     </ScrollViewer>

@@ -51,7 +51,7 @@
                 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="books:BookDto">
-                        <Border Background="#20FFFFFF" 
+                        <Border Classes="BookCard"
                                 CornerRadius="8" 
                                 Padding="15" 
                                 Margin="6"

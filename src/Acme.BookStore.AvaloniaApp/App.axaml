@@ -11,5 +11,53 @@
   
     <Application.Styles>
         <FluentTheme />
+        
+        <!-- Custom theme-aware colors -->
+        <Styles>
+            <!-- Light Theme Resources (Default) -->
+            <Style Selector="Border.NavigationPanel">
+                <Setter Property="Background" Value="#F5F5F5"/>
+            </Style>
+            <Style Selector="Border.ContentPanel">
+                <Setter Property="Background" Value="#FFFFFF"/>
+            </Style>
+            <Style Selector="Border.BookCard">
+                <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+            <Style Selector="Border.ErrorBox">
+                <Setter Property="Background" Value="#FFEBEE"/>
+                <Setter Property="BorderBrush" Value="#F44336"/>
+            </Style>
+            <Style Selector="Border.ErrorBox TextBlock">
+                <Setter Property="Foreground" Value="#C62828"/>
+            </Style>
+            <Style Selector="TextBlock.SubtitleText">
+                <Setter Property="Foreground" Value="#757575"/>
+            </Style>
+            
+            <!-- Dark Theme Overrides -->
+            <Style Selector="Border.NavigationPanel:dark">
+                <Setter Property="Background" Value="#20FFFFFF"/>
+            </Style>
+            <Style Selector="Border.ContentPanel:dark">
+                <Setter Property="Background" Value="#15FFFFFF"/>
+            </Style>
+            <Style Selector="Border.BookCard:dark">
+                <Setter Property="Background" Value="#25FFFFFF"/>
+                <Setter Property="BorderBrush" Value="#40FFFFFF"/>
+            </Style>
+            <Style Selector="Border.ErrorBox:dark">
+                <Setter Property="Background" Value="#4D1F1C"/>
+                <Setter Property="BorderBrush" Value="#EF5350"/>
+            </Style>
+            <Style Selector="Border.ErrorBox:dark TextBlock">
+                <Setter Property="Foreground" Value="#FFCDD2"/>
+            </Style>
+            <Style Selector="TextBlock.SubtitleText:dark">
+                <Setter Property="Foreground" Value="#B0FFFFFF"/>
+            </Style>
+        </Styles>
     </Application.Styles>
 </Application>

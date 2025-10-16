@@ -39,13 +39,11 @@
         </StackPanel>
 
         <Border IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                Background="#FFEBEE"
-                BorderBrush="#F44336"
+                Classes="ErrorBox"
                 BorderThickness="1"
                 Padding="10"
                 CornerRadius="4">
             <TextBlock Text="{Binding ErrorMessage}"
-                      Foreground="#C62828"
                       TextWrapping="Wrap"/>
         </Border>
 
